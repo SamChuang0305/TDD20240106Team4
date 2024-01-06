@@ -1,4 +1,4 @@
-﻿namespace BudgetServcie;
+﻿namespace BudgetProject;
 
 public class Budget
 {

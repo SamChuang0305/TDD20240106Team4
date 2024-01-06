@@ -1,23 +1,30 @@
-﻿using BudgetServcie;
-using NSubstitute;
+﻿using NSubstitute;
 using NUnit.Framework;
 
-namespace BudgetService
+namespace BudgetProject
 {
     public class Tests
     {
-        private IBudgetRepo _transferService;
+        private BudgetService _budgetService;
+        private IBudgetRepo _budgetRepo;
 
         [SetUp]
         public void Setup()
         {
-            _transferService = Substitute.For<IBudgetRepo>();
+            _budgetRepo = Substitute.For<IBudgetRepo>();
+            _budgetService = new BudgetService(_budgetRepo);
         }
 
         [Test]
-        public void Test1()
+        public void TestStartOverEnd()
         {
-            Assert.Pass();
+            _budgetRepo.GetAll().Returns(new List<Budget>
+            {
+                new Budget { YearMonth = "202401", Amount = 310 },
+            });
+
+            var result = _budgetService.Query(new DateTime(2024, 1, 20), new DateTime(2024, 1, 10));
+            Assert.Equals(0, result);
         }
     }
 }
