@@ -1,9 +1,9 @@
-﻿using NSubstitute;
-using NUnit.Framework;
+﻿using BudgetLibrary;
+using NSubstitute;
 
-namespace BudgetProject
+namespace BudgetLibraryTest
 {
-    public class Tests
+    public class BudgetServiceTests
     {
         private BudgetService _budgetService;
         private IBudgetRepo _budgetRepo;
@@ -23,8 +23,8 @@ namespace BudgetProject
                 new Budget { YearMonth = "202401", Amount = 310 },
             });
 
-            var result = _budgetService.Query(new DateTime(2024, 2, 20), new DateTime(2024, 3, 10));
-            Assert.AreEqual(0, result);
+            var actual = _budgetService.Query(new DateTime(2024, 2, 20), new DateTime(2024, 3, 10));
+            Assert.AreEqual(0, actual);
         }
 
         [Test]
@@ -35,8 +35,8 @@ namespace BudgetProject
                 new Budget { YearMonth = "202401", Amount = 310 },
             });
 
-            var result = _budgetService.Query(new DateTime(2024, 1, 20), new DateTime(2024, 1, 10));
-            Assert.AreEqual(0, result);
+            var actual = _budgetService.Query(new DateTime(2024, 1, 20), new DateTime(2024, 1, 10));
+            Assert.AreEqual(0, actual);
         }
 
         [Test]
@@ -47,8 +47,8 @@ namespace BudgetProject
                 new Budget { YearMonth = "202401", Amount = 310 },
             });
 
-            var result = _budgetService.Query(new DateTime(2024, 1, 20), new DateTime(2024, 1, 20));
-            Assert.AreEqual(10, result);
+            var actual = _budgetService.Query(new DateTime(2024, 1, 20), new DateTime(2024, 1, 20));
+            Assert.AreEqual(10, actual);
         }
 
         [Test]
@@ -59,8 +59,8 @@ namespace BudgetProject
                 new Budget { YearMonth = "202401", Amount = 310 },
             });
 
-            var result = _budgetService.Query(new DateTime(2024, 1, 20), new DateTime(2024, 1, 25));
-            Assert.AreEqual(60, result);
+            var actual = _budgetService.Query(new DateTime(2024, 1, 20), new DateTime(2024, 1, 25));
+            Assert.AreEqual(60, actual);
         }
 
         [Test]
@@ -71,8 +71,8 @@ namespace BudgetProject
                 new Budget { YearMonth = "202403", Amount = 310 }, new Budget { YearMonth = "202404", Amount = 3000 },
             });
 
-            var result = _budgetService.Query(new DateTime(2024, 3, 29), new DateTime(2024, 4, 5));
-            Assert.AreEqual(530, result);
+            var actual = _budgetService.Query(new DateTime(2024, 3, 29), new DateTime(2024, 4, 5));
+            Assert.AreEqual(530, actual);
         }
 
         [Test]
@@ -83,8 +83,8 @@ namespace BudgetProject
                 new Budget { YearMonth = "202403", Amount = 310 }, new Budget { YearMonth = "202404", Amount = 3000 },
             });
 
-            var result = _budgetService.Query(new DateTime(2024, 3, 1), new DateTime(2024, 3, 31));
-            Assert.AreEqual(310, result);
+            var actual = _budgetService.Query(new DateTime(2024, 3, 1), new DateTime(2024, 3, 31));
+            Assert.AreEqual(310, actual);
         }
 
         [Test]
@@ -96,8 +96,8 @@ namespace BudgetProject
                 , new Budget { YearMonth = "202405", Amount = 31000 },
             });
 
-            var result = _budgetService.Query(new DateTime(2024, 3, 29), new DateTime(2024, 5, 5));
-            Assert.AreEqual(8030, result);
+            var actual = _budgetService.Query(new DateTime(2024, 3, 29), new DateTime(2024, 5, 5));
+            Assert.AreEqual(8030, actual);
         }
     }
 }

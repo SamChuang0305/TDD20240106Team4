@@ -1,4 +1,4 @@
-﻿namespace BudgetProject
+﻿namespace BudgetLibrary
 {
     public class BudgetService
     {
@@ -16,14 +16,14 @@
                 return 0m;
             }
 
-            var allBudget = _budgetRepo
-                            .GetAll()
-                            .Where(w => w.YearMonth.CompareTo( start.ToString("yyyyMM")) >= 0
-                                   && w.YearMonth.CompareTo(end.ToString("yyyyMM")) <= 0);
+            var budgets = _budgetRepo
+                          .GetAll()
+                          .Where(w => w.YearMonth.CompareTo(start.ToString("yyyyMM")) >= 0
+                                     && w.YearMonth.CompareTo(end.ToString("yyyyMM")) <= 0);
 
             var amount = 0m;
 
-            foreach (var budget in allBudget)
+            foreach (var budget in budgets)
             {
                 if (end >= budget.MonthEndDay && start <= budget.MonthStartDay)
                 {
@@ -34,7 +34,7 @@
                     var tempStart = start > budget.MonthStartDay ? start : budget.MonthStartDay;
                     var tempEnd = end < budget.MonthEndDay ? end : budget.MonthEndDay;
                     var daysInMonth = DateTime.DaysInMonth(tempStart.Year, tempStart.Month);
-                    decimal totalDays = (decimal)((tempEnd - tempStart).TotalDays + 1);
+                    var totalDays = (decimal)((tempEnd - tempStart).TotalDays + 1);
                     amount += budget.Amount / (decimal)daysInMonth * totalDays;
                 }
             }
