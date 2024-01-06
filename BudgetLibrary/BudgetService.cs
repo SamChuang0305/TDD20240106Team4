@@ -21,13 +21,13 @@
                           .Where(w => w.YearMonth.CompareTo(start.ToString("yyyyMM")) >= 0
                                      && w.YearMonth.CompareTo(end.ToString("yyyyMM")) <= 0);
 
-            var amount = 0m;
+            var totalAmount = 0m;
 
             foreach (var budget in budgets)
             {
                 if (end >= budget.MonthEndDay && start <= budget.MonthStartDay)
                 {
-                    amount += budget.Amount;
+                    totalAmount += budget.Amount;
                 }
                 else
                 {
@@ -35,11 +35,11 @@
                     var tempEnd = end < budget.MonthEndDay ? end : budget.MonthEndDay;
                     var daysInMonth = DateTime.DaysInMonth(tempStart.Year, tempStart.Month);
                     var totalDays = (decimal)((tempEnd - tempStart).TotalDays + 1);
-                    amount += budget.Amount / (decimal)daysInMonth * totalDays;
+                    totalAmount += budget.Amount / (decimal)daysInMonth * totalDays;
                 }
             }
 
-            return amount;
+            return totalAmount;
         }
     }
 }
