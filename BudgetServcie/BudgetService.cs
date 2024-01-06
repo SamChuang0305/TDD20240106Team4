@@ -1,6 +1,6 @@
 ﻿namespace BudgetServcie
 {
-    public class Class1
+    public class BudgetService
     {
 
     }
